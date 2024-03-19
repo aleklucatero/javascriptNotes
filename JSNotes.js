@@ -2184,10 +2184,15 @@ Step 4
 // };
 
 // async await with fetch
-// const getNotifications = async () => {
-//     const APIresponse = await fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json");
-//     const APIdata = await APIresponse.json();
+const getNotificationsCount = async () => {
+    const promise = await fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json");
+    const data = await promise.json();
 
-//     console.log(data);
-//     return APIdata.data;
-// }
+    console.log(data); //The data contains an object with a "count"
+    return data.count; //Returning that specific value of the count
+}
+
+//Since getNotificationsCount returns a promise itself, we still have to use .then to access the data of function.
+getNotificationsCount.then(data => {
+    console.log(data);
+})
