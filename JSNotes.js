@@ -2184,15 +2184,39 @@ Step 4
 // };
 
 // async await with fetch
-const getNotificationsCount = async () => {
-    const promise = await fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json");
-    const data = await promise.json();
+// const getNotificationsCount = async () => {
+//     const promise = await fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json");
+//     const data = await promise.json();
 
-    console.log(data); //The data contains an object with a "count"
-    return data.count; //Returning that specific value of the count
+//     console.log(data); //The data contains an object with a "count"
+//     return data.count; //Returning that specific value of the count
+// }
+
+// //Since getNotificationsCount returns a promise itself, we still have to use .then to access the data of function.
+// getNotificationsCount.then(data => {
+//     console.log(data);
+// })
+
+// Downsides of async/await
+const wait = milliseconds => {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, milliseconds);
+    });
 }
 
-//Since getNotificationsCount returns a promise itself, we still have to use .then to access the data of function.
-getNotificationsCount.then(data => {
-    console.log(data);
-})
+/*We wouldnt want to use aysnc/await in this function bc, it will delay the fetch, making the website slower.
+So we work with promises and .then statements instead*/
+const initialize = () => {
+    wait(2_000).then(() => {
+        console.log("Waited 2 seconds");
+    });
+    fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json")
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    });
+}
+
+initialize(); //We see that the console logs the fetch request and then it logs the message.
