@@ -1871,3 +1871,323 @@ form.addEventListener("submit", event => {
 // });
 
 //This is the final line
+
+//After this line, I added all of my notes from my Mac device
+//                                                                       JS NOTES
+
+// 60 - DOM + fetch real API's
+// User can submit username on a form, form fetches the API information from github repost. Gives clickable link, as well as repo name, description
+// import {startLoader, stopLoader} from "./helpers.js";
+// import FetchWrapper from "./fetch-wrapper.js";
+
+// const API = new FetchWrapper("https://api.github.com");
+
+// const form = document.querySelector("#repos-form");
+// const username = document.querySelector("#github-username");
+// const button = document.querySelector("#get-repos");
+// const list = document.querySelector("#repos-list");
+
+// //First we want to add a submit event listener to the form element since the user is submiting a username
+// form.addEventListener("submit", event => {
+//     event.preventDefault(); //We prevent default to make sure that the website doesnt refresh when username is submitted
+//     startLoader(button); //We startLoader function that we imported on the button element
+
+//     API.get("/users/{username}/repos") //Make a get API call to the endpoint where we can get repos information
+//     .then(data => {
+//         console.log(data); //Console log the data to see what information we can access
+
+//         list.innerHTML = ""; //We empty out the HTML inside of list everytime this is run, so the search is wiped clean
+        
+//         data.forEach(repo => { //We iterate through all of the usernames entered. 
+
+//                 //We access the list element where info will be displayedm and insert HTML. <a> is for clickable link, <h2> is for rep title, <p> for descrip
+//                 list.insertAdjacentHTML("beforeend", ` 
+//                 <li>
+//                     <a href=${repo.html_url} target="_blank">
+//                     <h2>${repo.full_name}</h2>
+//                     <p>${repo.description}</p></a> 
+//                 </li>`);
+//         });
+//     })
+
+//     //We add a .finally to handle whatever the promise is, we call the stopLoader function on the button element, and make sure that it's reset with the title given.
+//     .finally(() => {
+//         stopLoader(button, "Get Repos");
+//     });
+// });
+
+
+//                                                                      60 DOM + fetch real API's
+
+// In this project, the user can change 2 drop down menus and find the currency exchange between those 2 values
+// import FetchWrapper from "./fetch-wrapper.js";
+
+// const base = document.querySelector("#base-currency");
+// const target = document.querySelector("#target-currency");
+// const result = document.querySelector("#conversion-result");
+
+// const API = new FetchWrapper(" https://v6.exchangerate-api.com/v6/9a69951bfce304d6eaacffce/");
+
+// //We make an equation which we are going to use once an EventListener is triggered.
+// const currencyEquation = () => { 
+//     API.get(`latest/${target.value}`) //We interpolate the endpoint of the API with whatever the target.value is to get the correct currency
+//     .then(data => {
+//         console.log(data);
+//         result.textContent = data.conversion_rates[target.value]; //We set the textcontent in result element to equal the value of the conversion rate requested.
+//     });
+// }
+
+// // We add an event listener to each of the drop down menus that can be changed
+// base.addEventListener("change", () => { 
+//     currencyEquation();
+// });
+
+// target.addEventListener("change", () => {
+//     currencyEquation();
+// });
+
+
+//                                                          62 Functions - Lexical Scope
+
+// When working wth "this" and you use the function syntax, function() assigns a new value to "this", so anything done after that is going to be undefined
+
+// class App {
+//     constructor() {
+//         this.navbar = document.querySelector("#navbar");
+//         this.initEvents();
+//     }
+
+//     initEvents() {
+//         //capture the value so that we can use it inside the function() { }
+//         const that = this;
+//         this.navbar.addEventListener("click", function() {
+//             console.log(this.navbar); // undefined because `this` inside the function has a new value
+//             console.log(that.navbar); // returns the navbar because `that` holds the value of the outer function
+//             that.navbar.remove(); // works
+//         });
+//     }
+// }
+
+//                                        OR
+// class App {
+//     constructor() {
+//         this.navbar = document.querySelector("#navbar");
+//         this.initEvents();
+//     }
+
+//     initEvents() {
+//         this.navbar.addEventListener("click", function() {
+//             console.log(this.navbar); // undefined because `this` inside the function has a new value
+//             console.log(that.navbar); // returns the navbar because `that` holds the value of the outer function
+//             that.navbar.remove(); // works
+//         }.bind(this)); //bind the value of this from outside the function into the inner function
+//     }
+// }
+
+//                                          OR
+// class App {
+//     constructor() {
+//         this.navbar = document.querySelector("#navbar");
+//         this.initEvents();
+//     }
+
+//     initEvents() {
+//         this.navbar.addEventListener("click", () => { // Arrow function
+//             console.log(this.navbar);
+//             this.navbar.remove();
+//         });
+//     }
+// }
+
+
+//                                                               62 Functions II - Callbacks
+
+//You can call the name of the function that was initialized, inside another function which accepts a callback
+// const registerUser = (user, callback) => { 
+//     if (!user.id) {
+//         return false;
+//     }
+
+//     console.log("registering user");
+//     //call the "callback" function passed as an argument
+//     callback();
+// }
+
+// // Sample usage
+// const sendWelcomeEmail = () => {
+//     console.log("Sending welcome email");
+// }
+// registerUser({id: 1, name: "Vanessa"}, sendWelcomeEmail); //sendWelcomeEmail will run after the console logs. Then it will run the callback()
+// registerUser({id: 2, name: "Jogn"}, () => {
+//     console.log("this also works!")
+// });
+
+// //Example:
+// const delay = (callback, milliseconds) => {
+//     setTimeout(callback, milliseconds);
+// };
+
+
+// // Sample usage - do not modify
+// delay(() => {
+//     console.log("This will be delayed 1 second");
+// }, 1_000);
+
+
+//                                                              63 Exceptions 
+//Try - Catch 
+// const sayHello = () => {
+//     console.log("Hello!");
+// };
+
+// console.log("Step 1");
+// try {
+//     sayHello()
+//     console.log("Step 2");
+// } catch (error) { //This will not be triggered because there is no error in the try
+//     console.log("Step 3");
+//     console.error(error);
+// }
+// console.log("Step 4");
+
+/*      This will log:
+Step 1
+Hello!
+Step 2
+Step 4
+*/
+
+//Throw Exceptions
+// const sayHello = name => {
+//     if (!name) {
+//         throw new Error("The name entered is not valid");
+//     }
+//     console.log(`Hello ${name}`);
+// }
+
+// console.log("Code before");
+
+// try {
+//     sayHello()
+// } catch (error) {
+//     console.error("Functionality in sayHello() not used correctly");
+// };
+
+// console.log("Code after");
+
+//Silencing error, usually done when there is an important task and something else happens in the background
+// const button = document.querySelector("#remove-title"); //Button that removes <p>.
+
+// button.addEventListener("click", () => {
+//     try {
+//         document.querySelector("h1").remove();
+//     } catch (error) { //Once the button is pressed once and the title is removed, if button is pressed again, it will catch an error instead of breaking the app
+//         console.error(error);
+//     };
+// });
+
+//                                                                  64 - Intro to async await
+//                                  async 
+// const getNumber = () => {
+//     //getNumber is a function that returns a promise below.
+//     return new Promise(resolve => { 
+//         resolve(42);
+//     });
+// }
+// getNumber().then(value => {
+//     console.log(value);
+// });
+
+
+//  //This can be re-written as
+//  const getOtherNumber = async () => { //Syntatic sugar, we dont need to return new Promise, it is included in async ().
+//     resolve(42);
+//  };
+//  getOtherNumber.then(value => {
+//     console.log(value);
+//  });
+
+ //Different ways to write async
+ //function
+//  async function getValue() {
+//     return 42;
+//  }
+//  getValue.then(value => {
+//     console.log(value);
+//  });
+
+//  //arrow function
+//  const getValue = async () => {
+//     return 42;
+//  }
+//  getValue.then(value => {
+//     console.log(value);
+//  })
+
+//  //arrow function with param
+//  const isAdmin = async type => {
+//     return type === "admin";
+//  }
+//  isAdmin("admin").then(value => {
+//     console.log(value); //true
+//  });
+
+// //Class methods
+// class User {
+//     async isAdmin(type) {
+//         return type === "admin";
+//     }
+// }
+// const user = new User;
+// user.isAdmin("admin").then(value => {
+//     console.log(value);
+// });
+
+//                                  await
+//await can only be used in functions that are async, what it does is that it computes all the ".then" behind the scenes
+// This is how it would look without await, and just using promises
+// async function getValue() {
+//     return 42;
+// }
+
+// const init = () => {
+//     getValue().then(result => {
+//         console.log(result);
+//     });
+// }
+
+//This is how it would look using await
+// async function getValue() {
+//     return 42;
+// }
+
+// const initAwait = async () => {
+//     const result = await getValue(); //await getValue is the same as getValue().then(...), You store in const to show the output
+//     console.log(result);
+// }
+
+// Another example
+
+// This is a function that takes milliseconds as a parameter
+// const wait = milliseconds => {
+//     return new Promise(resolve => {
+//         setTimeout(() => {
+//             resolve();
+//         }, 1_000);
+//     });
+// }
+
+// const init = async () => {
+//     console.log("A");
+//     await wait(3000);
+//     console.log("B");
+// };
+
+// async await with fetch
+// const getNotifications = async () => {
+//     const APIresponse = await fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json");
+//     const APIdata = await APIresponse.json();
+
+//     console.log(data);
+//     return APIdata.data;
+// }
