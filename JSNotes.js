@@ -2198,25 +2198,40 @@ Step 4
 // })
 
 // Downsides of async/await
-const wait = milliseconds => {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve();
-        }, milliseconds);
-    });
-}
+// const wait = milliseconds => {
+//     return new Promise(resolve => {
+//         setTimeout(() => {
+//             resolve();
+//         }, milliseconds);
+//     });
+// }
 
-/*We wouldnt want to use aysnc/await in this function bc, it will delay the fetch, making the website slower.
-So we work with promises and .then statements instead*/
-const initialize = () => {
-    wait(2_000).then(() => {
-        console.log("Waited 2 seconds");
-    });
-    fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json")
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-    });
-}
+// /*We wouldnt want to use aysnc/await in this function bc, it will delay the fetch, making the website slower.
+// So we work with promises and .then statements instead*/
+// const initialize = () => {
+//     wait(2_000).then(() => {
+//         console.log("Waited 2 seconds");
+//     });
+//     fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json")
+//     .then(response => response.json())
+//     .then(data => {
+//         console.log(data);
+//     });
+// }
 
-initialize(); //We see that the console logs the fetch request and then it logs the message.
+// initialize(); //We see that the console logs the fetch request and then it logs the message.
+
+// async/await example fetching a humidity API
+// *HMTL file not included, just JS*
+const getHumidity = async city => {
+    const reponse = await fetch(`https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/weatherstack/${city}.json`);
+    const data = await reponse.json();
+
+    console.log(data.current.humidity); //Accessing the value of humidity in the data
+    showHumidity(data.current.humidity);
+};
+
+const result = document.querySelector("#result"); //Accessing ID from using DOM. 
+const showHumidity = humidity => {
+    result.textContent = `it's ${humidity} degreees calcius`; //Changing textContent in result to a statement using Concatenation.
+}
