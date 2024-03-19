@@ -2237,23 +2237,52 @@ Step 4
 // }
 
 //Example using async/await on a POST method while fetching API
-const saveGrade = async grade => {
-    const response = await fetch("https://api.learnjavascript.online/demo/grades.json", {
-        method: "POST",
-        body: JSON.stringify({
-            grade: grade
-        })
-    });
+// const saveGrade = async grade => {
+//     const response = await fetch("https://api.learnjavascript.online/demo/grades.json", {
+//         method: "POST",
+//         body: JSON.stringify({
+//             grade: grade
+//         })
+//     });
+//     const data = await response.json();
+//     console.log(data);
+// }
+
+// //This function will add an event listener and check for a submit, on an element. Then it will run saveGrade()
+// const form = document.querySelector("#grades-form"); //form element that has a "save grade" button
+// const userGrade = document.querySelector("#user-grade"); //input element that user works with
+
+// form.addEventListener("submit", event => {
+//     event.preventDefault(); //Makes sure that the page wont reload whe user submits.
+
+//     saveGrade(userGrade.value); //Runs the function saveGrade with the grade inputed in the user-grade element.
+// });
+
+// Handling rejected awaits with try catch blocks
+// 1st way is by either by using a different function with try catch block *allows to handle errors case by case*
+const getUnreadCount = async () => {
+    const response = await fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json");
     const data = await response.json();
-    console.log(data);
+    return data.count;
 }
 
-//This function will add an event listener and check for a submit, on an element. Then it will run saveGrade()
-const form = document.querySelector("#grades-form"); //form element that has a "save grade" button
-const userGrade = document.querySelector("#user-grade"); //input element that user works with
+const init = async () => {
+    //getUnreadCount(); promise can reject so we wrap it with a try, catch statement.
+    try {
+        const result = await getUnreadCount(); 
+        console.log(result);
+    } catch (error) {
+        console.error(error);
+    }
+}
 
-form.addEventListener("submit", event => {
-    event.preventDefault(); //Makes sure that the page wont reload whe user submits.
-
-    saveGrade(userGrade.value); //Runs the function saveGrade with the grade inputed in the user-grade element.
-});
+// 2nd way to hangle error is by wrapping getUnreadCount with try catch. *Will handle all errors the same way*
+const getUnreadCount = async () => {
+    try {
+        const response = await fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json");
+        const data = await response.json();
+        return data.count;
+    } catch (error) {
+        throw "An error has occurred";
+    }
+}
