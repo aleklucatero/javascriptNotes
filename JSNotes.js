@@ -2223,15 +2223,37 @@ Step 4
 
 // async/await example fetching a humidity API
 // *HMTL file not included, just JS*
-const getHumidity = async city => {
-    const reponse = await fetch(`https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/weatherstack/${city}.json`);
-    const data = await reponse.json();
+// const getHumidity = async city => {
+//     const reponse = await fetch(`https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/weatherstack/${city}.json`);
+//     const data = await reponse.json();
 
-    console.log(data.current.humidity); //Accessing the value of humidity in the data
-    showHumidity(data.current.humidity);
-};
+//     console.log(data.current.humidity); //Accessing the value of humidity in the data
+//     showHumidity(data.current.humidity);
+// };
 
-const result = document.querySelector("#result"); //Accessing ID from using DOM. 
-const showHumidity = humidity => {
-    result.textContent = `it's ${humidity} degreees calcius`; //Changing textContent in result to a statement using Concatenation.
+// const result = document.querySelector("#result"); //Accessing ID from using DOM. 
+// const showHumidity = humidity => {
+//     result.textContent = `it's ${humidity} degreees calcius`; //Changing textContent in result to a statement using Concatenation.
+// }
+
+//Example using async/await on a POST method while fetching API
+const saveGrade = async grade => {
+    const response = await fetch("https://api.learnjavascript.online/demo/grades.json", {
+        method: "POST",
+        body: JSON.stringify({
+            grade: grade
+        })
+    });
+    const data = await response.json();
+    console.log(data);
 }
+
+//This function will add an event listener and check for a submit, on an element. Then it will run saveGrade()
+const form = document.querySelector("#grades-form"); //form element that has a "save grade" button
+const userGrade = document.querySelector("#user-grade"); //input element that user works with
+
+form.addEventListener("submit", event => {
+    event.preventDefault(); //Makes sure that the page wont reload whe user submits.
+
+    saveGrade(userGrade.value); //Runs the function saveGrade with the grade inputed in the user-grade element.
+});
