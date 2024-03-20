@@ -2260,29 +2260,67 @@ Step 4
 
 // Handling rejected awaits with try catch blocks
 // 1st way is by either by using a different function with try catch block *allows to handle errors case by case*
-const getUnreadCount = async () => {
-    const response = await fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json");
-    const data = await response.json();
-    return data.count;
+// const getUnreadCount = async () => {
+//     const response = await fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json");
+//     const data = await response.json();
+//     return data.count;
+// }
+
+// const init = async () => {
+//     //getUnreadCount(); promise can reject so we wrap it with a try, catch statement.
+//     try {
+//         const result = await getUnreadCount(); 
+//         console.log(result);
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }
+
+// // 2nd way to hangle error is by wrapping getUnreadCount with try catch. *Will handle all errors the same way*
+// const getUnreadCount = async () => {
+//     try {
+//         const response = await fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json");
+//         const data = await response.json();
+//         return data.count;
+//     } catch (error) {
+//         throw "An error has occurred";
+//     }
+// }
+
+/* In this excercise I will make a class that contains a "get" operation,
+I will then use that class to fetch an endpoint using async/await,
+as well as handling errors
+*/
+class FetchWrapper {
+    constructor(baseURL) {
+        this.baseURL = baseURL;
+    };
+
+    async get(endpoint) {
+        const reponse = await fetch(this.baseURL + endpoint)
+        return reponse.json();
+    };
 }
 
-const init = async () => {
-    //getUnreadCount(); promise can reject so we wrap it with a try, catch statement.
+const API = new FetchWrapper("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/");
+
+const checkForNotifications = async () => {
     try {
-        const result = await getUnreadCount(); 
-        console.log(result);
+        const data = await API.get("notifications/new.json");
+        console.log(data);
+        showNewNotifications(data.count);
     } catch (error) {
-        console.error(error);
+        showNewNotifications();
+    };
+
+};
+
+function showNewNotifications(count) {
+    if (!count) {
+        console.log("We could not load your notifications. Try again later.");
+        return;
     }
+    console.log(`You have ${count} new notifications. Would you like to read them?`)
 }
 
-// 2nd way to hangle error is by wrapping getUnreadCount with try catch. *Will handle all errors the same way*
-const getUnreadCount = async () => {
-    try {
-        const response = await fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json");
-        const data = await response.json();
-        return data.count;
-    } catch (error) {
-        throw "An error has occurred";
-    }
-}
+checkForNotifications();
