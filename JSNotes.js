@@ -2410,3 +2410,15 @@ runBtn.addEventListener("click", () => {
     showConfetti(); //Calls a fictional function with shows the confetti on the page
     isConfettiShown = true; //We change the value of the variable defined outside.
 })
+
+//Example: Everytime the user clicks on start button, make startGame() be called once, and logAnalytics() everytime
+let isCalled = false;
+
+const button = document.querySelector("#app-button");
+button.addEventListener("click", () => {
+    if (!isCalled) { //I access the isCalled variable
+        startGame();
+        isCalled = false; //I change the isCalled value
+    }
+    logAnaylitics();
+});
