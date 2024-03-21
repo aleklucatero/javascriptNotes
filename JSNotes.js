@@ -2291,69 +2291,86 @@ Step 4
 I will then use that class to fetch an endpoint using async/await,
 as well as handling errors
 */
-class FetchWrapper {
-    constructor(baseURL) {
-        this.baseURL = baseURL;
-    };
+// class FetchWrapper {
+//     constructor(baseURL) {
+//         this.baseURL = baseURL;
+//     };
 
-    async get(endpoint) {
-        const reponse = await fetch(this.baseURL + endpoint)
-        return reponse.json();
-    };
+//     async get(endpoint) {
+//         const reponse = await fetch(this.baseURL + endpoint)
+//         return reponse.json();
+//     };
 
-    async put(endpoint, body) {
-        const response = await fetch(this.baseURL + endpoint, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(body)
-        });
-        return response.json();
-    };
+//     async put(endpoint, body) {
+//         const response = await fetch(this.baseURL + endpoint, {
+//             method: "PUT",
+//             headers: {
+//                 "Content-Type": "application/json"
+//             },
+//             body: JSON.stringify(body)
+//         });
+//         return response.json();
+//     };
 
-    async post(endpoint, body) {
-        const response = await fetch(this.baseURL + endpoint, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(body)
-        });
-        return response.json();
-    };
+//     async post(endpoint, body) {
+//         const response = await fetch(this.baseURL + endpoint, {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json"
+//             },
+//             body: JSON.stringify(body)
+//         });
+//         return response.json();
+//     };
 
-    async delete(endpoint, body) {
-        response = await fetch(this.baseURL + endpoint, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(body)
-        });
-        return response.json();
-    };
-};
+//     async delete(endpoint, body) {
+//         response = await fetch(this.baseURL + endpoint, {
+//             method: "DELETE",
+//             headers: {
+//                 "Content-Type": "application/json"
+//             },
+//             body: JSON.stringify(body)
+//         });
+//         return response.json();
+//     };
+// };
 
-const API = new FetchWrapper("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/");
+// const API = new FetchWrapper("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/");
 
-const checkForNotifications = async () => {
-    try {
-        const data = await API.get("notifications/new.json");
-        console.log(data);
-        showNewNotifications(data.count);
-    } catch (error) {
-        showNewNotifications();
-    };
+// const checkForNotifications = async () => {
+//     try {
+//         const data = await API.get("notifications/new.json");
+//         console.log(data);
+//         showNewNotifications(data.count);
+//     } catch (error) {
+//         showNewNotifications();
+//     };
 
-};
+// };
 
-function showNewNotifications(count) {
-    if (!count) {
-        console.log("We could not load your notifications. Try again later.");
-        return;
-    }
-    console.log(`You have ${count} new notifications. Would you like to read them?`)
-}
+// function showNewNotifications(count) {
+//     if (!count) {
+//         console.log("We could not load your notifications. Try again later.");
+//         return;
+//     }
+//     console.log(`You have ${count} new notifications. Would you like to read them?`)
+// }
 
-checkForNotifications();
+// checkForNotifications();
+
+//Dynamic imports
+//Exampe of importing a library called "chat-library", on user Interaction
+//These examples are done without handling errors.
+const button = document.querySelector("button");
+
+button.addEventListener("click", async () => {
+    const module = await import("chat-library");
+    module.init(); //This is assuming that chat-library has an init() that is being exported
+})
+
+//This is an example of Dynamic imports with destructuring
+const anotherButton = document.querySelector("click", async () => {
+    //Since we are working with objects, I can destructure the init function from the module object
+    const {init} = await import("chat-library");
+    init();
+})
