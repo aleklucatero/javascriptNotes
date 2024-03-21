@@ -2386,3 +2386,14 @@ const anotherButton = document.querySelector("click", async () => {
     const {init} = await import("chat-library");
     init();
 })
+
+//Here is another example where I make a new instance of a built in class in a module
+import("./user-herlpers.js").then(module => {
+    const User = module.default; //User is a default export in users-herlpers.js
+    const canVote = module.canVote; //Storing canVote from users-herlpers.js in a const
+    
+    //Now we create a new instance
+    const user = new User("Alek", "Lucatero");
+    console.log(user.getFullName()); // Alek Lucatero
+    console.log(canVote(20)); //true
+})
