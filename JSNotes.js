@@ -2359,6 +2359,18 @@ as well as handling errors
 // checkForNotifications();
 
 //Dynamic imports
+//Example of importing lodash-es, and helpers.js
+import("lodash-es").then(module => {
+    const debounce = module.default; //Since debounce is the default function.
+
+    //You would then use debounce in this function
+});
+
+import("./helpers.js").then(module => {
+    const Helpers = module.default; //Helpers is a default export
+    const getDate = module.getDate; //getDate is a named export
+})
+
 //Exampe of importing a library called "chat-library", on user Interaction
 //These examples are done without handling errors.
 const button = document.querySelector("button");
