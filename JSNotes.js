@@ -2300,7 +2300,40 @@ class FetchWrapper {
         const reponse = await fetch(this.baseURL + endpoint)
         return reponse.json();
     };
-}
+
+    async put(endpoint, body) {
+        const response = await fetch(this.baseURL + endpoint, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        });
+        return response.json();
+    };
+
+    async post(endpoint, body) {
+        const response = await fetch(this.baseURL + endpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        });
+        return response.json();
+    };
+
+    async delete(endpoint, body) {
+        response = await fetch(this.baseURL + endpoint, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        });
+        return response.json();
+    };
+};
 
 const API = new FetchWrapper("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/");
 
