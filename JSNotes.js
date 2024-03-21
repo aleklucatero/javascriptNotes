@@ -2360,40 +2360,53 @@ as well as handling errors
 
 //Dynamic imports
 //Example of importing lodash-es, and helpers.js
-import("lodash-es").then(module => {
-    const debounce = module.default; //Since debounce is the default function.
+// import("lodash-es").then(module => {
+//     const debounce = module.default; //Since debounce is the default function.
 
-    //You would then use debounce in this function
-});
+//     //You would then use debounce in this function
+// });
 
-import("./helpers.js").then(module => {
-    const Helpers = module.default; //Helpers is a default export
-    const getDate = module.getDate; //getDate is a named export
-})
+// import("./helpers.js").then(module => {
+//     const Helpers = module.default; //Helpers is a default export
+//     const getDate = module.getDate; //getDate is a named export
+// })
 
-//Exampe of importing a library called "chat-library", on user Interaction
-//These examples are done without handling errors.
-const button = document.querySelector("button");
+// //Exampe of importing a library called "chat-library", on user Interaction
+// //These examples are done without handling errors.
+// const button = document.querySelector("button");
 
-button.addEventListener("click", async () => {
-    const module = await import("chat-library");
-    module.init(); //This is assuming that chat-library has an init() that is being exported
-})
+// button.addEventListener("click", async () => {
+//     const module = await import("chat-library");
+//     module.init(); //This is assuming that chat-library has an init() that is being exported
+// })
 
-//This is an example of Dynamic imports with destructuring
-const anotherButton = document.querySelector("click", async () => {
-    //Since we are working with objects, I can destructure the init function from the module object
-    const {init} = await import("chat-library");
-    init();
-})
+// //This is an example of Dynamic imports with destructuring
+// const anotherButton = document.querySelector("click", async () => {
+//     //Since we are working with objects, I can destructure the init function from the module object
+//     const {init} = await import("chat-library");
+//     init();
+// })
 
-//Here is another example where I make a new instance of a built in class in a module
-import("./user-herlpers.js").then(module => {
-    const User = module.default; //User is a default export in users-herlpers.js
-    const canVote = module.canVote; //Storing canVote from users-herlpers.js in a const
+// //Here is another example where I make a new instance of a built in class in a module
+// import("./user-herlpers.js").then(module => {
+//     const User = module.default; //User is a default export in users-herlpers.js
+//     const canVote = module.canVote; //Storing canVote from users-herlpers.js in a const
     
-    //Now we create a new instance
-    const user = new User("Alek", "Lucatero");
-    console.log(user.getFullName()); // Alek Lucatero
-    console.log(canVote(20)); //true
+//     //Now we create a new instance
+//     const user = new User("Alek", "Lucatero");
+//     console.log(user.getFullName()); // Alek Lucatero
+//     console.log(canVote(20)); //true
+// })
+
+//Closures
+//Example: showing confetti when user clicks on button, accesing a variable in the global scope
+let isConfettiShown = false;
+
+const runBtn = document.querySelector("#run-btn");
+runBtn.addEventListener("click", () => {
+    if (isConfettiShown) {
+        return false;
+    }
+    showConfetti(); //Calls a fictional function with shows the confetti on the page
+    isConfettiShown = true; //We change the value of the variable defined outside.
 })
