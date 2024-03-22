@@ -2400,25 +2400,56 @@ as well as handling errors
 
 //Closures
 //Example: showing confetti when user clicks on button, accesing a variable in the global scope
-let isConfettiShown = false;
+// let isConfettiShown = false;
 
-const runBtn = document.querySelector("#run-btn");
-runBtn.addEventListener("click", () => {
-    if (isConfettiShown) {
-        return false;
+// const runBtn = document.querySelector("#run-btn");
+// runBtn.addEventListener("click", () => {
+//     if (isConfettiShown) {
+//         return false;
+//     }
+//     showConfetti(); //Calls a fictional function with shows the confetti on the page
+//     isConfettiShown = true; //We change the value of the variable defined outside.
+// })
+
+// //Example: Everytime the user clicks on start button, make startGame() be called once, and logAnalytics() everytime
+// let isCalled = false;
+
+// const button = document.querySelector("#app-button");
+// button.addEventListener("click", () => {
+//     if (!isCalled) { //I access the isCalled variable
+//         startGame();
+//         isCalled = false; //I change the isCalled value
+//     }
+//     logAnaylitics();
+// });
+
+//Custom Elements
+class AppNavBar extends HTMLElement { //We are extending and accessing the HTML Elemen Class
+    constructor() {
+        super() //We have to user super since we are accessing the HTMLElement constructor
     }
-    showConfetti(); //Calls a fictional function with shows the confetti on the page
-    isConfettiShown = true; //We change the value of the variable defined outside.
-})
+}
+//customElements.define("Component-name", NameOfClassDescribing)
+window.customElements.define("app-navbar", AppNavBar)
 
-//Example: Everytime the user clicks on start button, make startGame() be called once, and logAnalytics() everytime
-let isCalled = false;
-
-const button = document.querySelector("#app-button");
-button.addEventListener("click", () => {
-    if (!isCalled) { //I access the isCalled variable
-        startGame();
-        isCalled = false; //I change the isCalled value
+//Shadow Dom - Styles and individual scripts are contained inside the shadow DOM
+{/* <style>
+    p {
+        color: red;
     }
-    logAnaylitics();
-});
+</style>
+<p>Page subtitle</p>
+<dashboard-stats>
+    <!-- Shadow DOM starts here -->
+    <p>Dashboard stats</p>
+    <!-- Shadow DOM ends here -->
+</dashboard-stats> */}
+
+// Defining shadow DOM
+class DashboardStats extends HTMLElement{
+    constructor() {
+        super();
+        //We open up the shadow DOM so we can access it using JS. Most times you want that to happen
+        const shadowRoot = this.attachShadow({mode: "open"})
+    }
+}
