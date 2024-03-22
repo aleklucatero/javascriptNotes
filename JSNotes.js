@@ -2424,13 +2424,13 @@ as well as handling errors
 // });
 
 //Custom Elements
-class AppNavBar extends HTMLElement { //We are extending and accessing the HTML Elemen Class
-    constructor() {
-        super() //We have to user super since we are accessing the HTMLElement constructor
-    }
-}
-//customElements.define("Component-name", NameOfClassDescribing)
-window.customElements.define("app-navbar", AppNavBar)
+// class AppNavBar extends HTMLElement { //We are extending and accessing the HTML Elemen Class
+//     constructor() {
+//         super() //We have to user super since we are accessing the HTMLElement constructor
+//     }
+// }
+// //customElements.define("Component-name", NameOfClassDescribing)
+// window.customElements.define("app-navbar", AppNavBar)
 
 //Shadow Dom - Styles and individual scripts are contained inside the shadow DOM
 {/* <style>
@@ -2446,10 +2446,29 @@ window.customElements.define("app-navbar", AppNavBar)
 </dashboard-stats> */}
 
 // Defining shadow DOM
-class DashboardStats extends HTMLElement{
-    constructor() {
-        super();
-        //We open up the shadow DOM so we can access it using JS. Most times you want that to happen
-        const shadowRoot = this.attachShadow({mode: "open"})
+// class DashboardStats extends HTMLElement{
+//     constructor() {
+//         super();
+//         //We open up the shadow DOM so we can access it using JS. Most times you want that to happen
+//         const shadowRoot = this.attachShadow({mode: "open"})
+//     }
+// }
+
+//Finishing the a custom Element class
+
+// Appdashboard inherits all properties from HTMLElement
+class AppDashboard extends HTMLElement {
+    constructor(){
+        super(); //This invokes the constructor of the superclass (HTMLElement)
+        console.log("AppDashboard Created");
+        const shadowRoot = this.attachShadow({mode: "open"}); //Make shadow DOM which allows ecapsulation of styles without interfering with anything else
     }
-}
+
+    connectedCallback() {
+        console.log("AppDashboard inserted into the DOM");
+    }
+ }
+
+ window.customElements.define("app-dashboard", AppDashboard);
+ const element = document.createElement("app-dashboard"); //"AppDashboard created" Will be logged
+ document.body.appendChild(element); // "AppDashboard inserted into the DOM"
