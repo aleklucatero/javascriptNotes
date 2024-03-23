@@ -2612,30 +2612,153 @@ as well as handling errors
 
 //Interview questions:
 //Return a specific message if input is a string, another message if it's a number
-function stringOrNumber(value) {
-    if (typeof value === "string") {
-        return ("I received a string");
-    } else if (typeof value === "number") {
-        return ("I received a number");
-    };
-};
+// function stringOrNumber(value) {
+//     if (typeof value === "string") {
+//         return ("I received a string");
+//     } else if (typeof value === "number") {
+//         return ("I received a number");
+//     };
+// };
 
-//Return true in the isNull function when it receives null.
-function isNull(value) {
-    return value === null; 
-    /*The reason why you have to compare directly is because typeof null !=== "null", 
-    it actually = "Object", which is a JS bug. This means you have to compare directly to null
-    */
-}
+// //Return true in the isNull function when it receives null.
+// function isNull(value) {
+//     return value === null; 
+//     /*The reason why you have to compare directly is because typeof null !=== "null", 
+//     it actually = "Object", which is a JS bug. This means you have to compare directly to null
+//     */
+// }
 
-//return 0 when NaN is detected
-function multiply(a, b) {
-    const result = a * b;
-    if(typeof result !== "number" || Number.isNaN(result)) {
-        return 0;
+// //return 0 when NaN is detected
+// function multiply(a, b) {
+//     const result = a * b;
+//     if(typeof result !== "number" || Number.isNaN(result)) {
+//         return 0;
+//     }
+//     /* typeof NaN is "number", so for you to check if a number is NaN, you have to use,
+//     Number.isNaN(result);
+//     */
+//     return result;
+// }
+
+// //Explanation of .this
+// class Square{
+//     constructor(side){
+//         this.side = side;
+//     }
+
+//     getPerimeter() {
+//         console.log(this); //This will console log the current value that was given
+//         return this.side * 4;
+//     }
+// }
+
+// const box = new Square(10);
+// const value = box.getPerimeter();
+// console.log(value); //Will print out 40
+
+// const anotherBox = new Square(10);
+// const calculatePerimeter = box.getPerimeter;
+// const anotherValue = calculatePerimeter(); //Will print out TypeError
+// /* We see that the way that the way that the function is called affects if the
+// .this is lost or not. Here the value of .this was lost when box.getPerimeter was assigned
+// to calculatePerimiter. So the .this becomes undefined. To avoid this, use .bind
+// */
+
+// //fixing issues pertraining to .this, you use .bing when assigning the variable that contains .this value to another
+// const fixedBox = new Square(10);
+// const newCalculatePerimeter = box.getPerimeter.bind(fixedBox); //fixedBox contains the .this value, so we bind it with the equation
+// const finalValue = newCalculatePerimeter();
+// console.log(finalValue); //40
+
+//map and map operations - provided key values must be a string
+//Setting values - .set(key, value)
+// const orders = new Map();
+// orders.set("table_14", "Processed");
+// orders.set("table_15", "Delivered");
+// orders.set("table_16", "Paid");
+// console.log(orders);
+
+// //Getting values - .get(key)
+// console.log(orders.get("table_14")); //Processed
+// console.log(orders.get("table_15")); //Deilvered
+// console.log(orders.get("table_16")); //Paid
+// console.log(orders.get("Something Else")); //undefined
+
+// //Getting size of map - .size ; as well as delte - .delete
+// console.log(orders.size); //3
+// orders.delete("table_16"); 
+// console.log(orders.size); //2
+// console.log(orders);
+
+// //iterating over maps
+// orders.forEach((value, key) => {
+//     console.log(value, key); // Logs: "processed", "table_14"...
+// })
+
+// //using for of syntax
+// for(const order of orders){
+//     console.log(order);
+// }
+
+// //Combining for of with destructuring the value
+// for(const [value, key] of orders){
+//     console.log(value, key);
+// }
+
+//Using map when you want the keys to not be a string
+// const userRoles = new Map();
+// console.log(userRoles);
+// userRoles.set(5, "Admin");
+// userRoles.set(1542, "viewer");
+// console.log(userRoles)
+
+//The key in a map can be an object
+// const users = [{
+//     id: 5,
+//     name: "Alek"
+// }, {
+//     id: 1542,
+//     name: "Sophia"
+// }];
+
+// const newUserRoles = new Map();
+// //.set(key, value)
+// newUserRoles.set(users[0], "admin"); //user[0] refers to {id:5, name: "Alek"} - a key can be an object
+// newUserRoles.set(users[1], "viewer");
+
+// /*You can iterate through the key now (Object)
+// This will give you objects*/
+// newUserRoles.forEach((value, key) => {
+//     console.log(key);
+// });
+
+// //This will give you the name of each key/object
+// newUserRoles.forEach((value, key) => {
+//     console.log(key.name);
+// });
+
+// //This whill give you the id of each key(object)
+// newUserRoles.forEach((value, key) => {
+//     console.log(key.id);
+// });
+
+class InventoryManager {
+    constructor(){
+        this.inventory = new Map();
     }
-    /* typeof NaN is "number", so for you to check if a number is NaN, you have to use,
-    Number.isNaN(result);
-    */
-    return result;
+
+    addItem(itemId, price){
+        this.inventory.set(itemId, price);
+        console.log(`Item ${itemId} was added to the inventory with the price of ${price}.`);
+    }
+
+    getInventoryCount(){
+        const count = this.inventory.size; //This sets the size of the Map set to a const
+        console.log(`The inventory count is ${count}`);
+        return count;
+    }
 }
+
+const manager = new InventoryManager();
+manager.addItem("Item-1", 5);
+manager.getInventoryCount();
