@@ -2593,11 +2593,49 @@ as well as handling errors
 // console.log(validatePhoneNumber("23456784")); //Expected false
 
 //In this excercise I am checking if the user input contains "javascript" anywhere in the text, not being case sensitive
-function isJavaScriptRelated(text){
-    const regex = /javascript/i;
-    return regex.test(text);
+// function isJavaScriptRelated(text){
+//     const regex = /javascript/i;
+//     return regex.test(text);
+// }
+
+// console.log(isJavaScriptRelated("I love javascript!")); //true
+// console.log(isJavaScriptRelated("I love JAVASCRIPT!")); //true
+// console.log(isJavaScriptRelated("I dont like to code")); //false
+
+//regex character classes and ranges
+//checking between specific character or number digits
+// const regex = /[a-z]/i;
+// regex.test("Hello World"); //true
+// regex.test("012345"); //false
+// regex.test("0125 test"); //true
+
+
+//Interview questions:
+//Return a specific message if input is a string, another message if it's a number
+function stringOrNumber(value) {
+    if (typeof value === "string") {
+        return ("I received a string");
+    } else if (typeof value === "number") {
+        return ("I received a number");
+    };
+};
+
+//Return true in the isNull function when it receives null.
+function isNull(value) {
+    return value === null; 
+    /*The reason why you have to compare directly is because typeof null !=== "null", 
+    it actually = "Object", which is a JS bug. This means you have to compare directly to null
+    */
 }
 
-console.log(isJavaScriptRelated("I love javascript!")); //true
-console.log(isJavaScriptRelated("I love JAVASCRIPT!")); //true
-console.log(isJavaScriptRelated("I dont like to code")); //false
+//return 0 when NaN is detected
+function multiply(a, b) {
+    const result = a * b;
+    if(typeof result !== "number" || Number.isNaN(result)) {
+        return 0;
+    }
+    /* typeof NaN is "number", so for you to check if a number is NaN, you have to use,
+    Number.isNaN(result);
+    */
+    return result;
+}
