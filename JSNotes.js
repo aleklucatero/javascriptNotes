@@ -2742,23 +2742,75 @@ as well as handling errors
 //     console.log(key.id);
 // });
 
-class InventoryManager {
-    constructor(){
-        this.inventory = new Map();
-    }
+// class InventoryManager {
+//     constructor(){
+//         this.inventory = new Map();
+//     }
 
-    addItem(itemId, price){
-        this.inventory.set(itemId, price);
-        console.log(`Item ${itemId} was added to the inventory with the price of ${price}.`);
-    }
+//     addItem(itemId, price){
+//         this.inventory.set(itemId, price);
+//         console.log(`Item ${itemId} was added to the inventory with the price of ${price}.`);
+//     }
 
-    getInventoryCount(){
-        const count = this.inventory.size; //This sets the size of the Map set to a const
-        console.log(`The inventory count is ${count}`);
-        return count;
-    }
+//     getInventoryCount(){
+//         const count = this.inventory.size; //This sets the size of the Map set to a const
+//         console.log(`The inventory count is ${count}`);
+//         return count;
+//     }
+// }
+
+// const manager = new InventoryManager();
+// manager.addItem("Item-1", 5);
+// manager.getInventoryCount();
+
+//Set - Stores a collection of unique values
+const set = new Set();
+set.add(10);
+set.add(5);
+console.log(set.size); // 2
+console.log(set); // Set (2) {10, 5}
+
+//Since sets are unique, you can't add another one of the same numbers
+set.add(10);
+console.log(set.size); // 2
+console.log(set); // Set (2) {10, 5}
+
+//This is useful when eliminating any duplicate values
+//Example of eliminating duplicates on a Youtube video upload
+const tags = new Set();
+tags.add("JavaSript");
+tags.add("How to");
+tags.add("JavaSript"); //Duplicate, ignored
+console.log(tags); // Set(2) { 'JavaSript', 'How to' }
+
+//adding Objects to set
+const objectSet = new Set();
+objectSet.add({name: "Alek"});
+objectSet.add({name: "Alek"});
+//Since objects are mutable, two different objects are created
+console.log(objectSet);
+
+//If an object is set to a variable, then the same object wont be added
+const person = {name: "Alek"};
+const checkPerson = new Set();
+checkPerson.add(person);
+checkPerson.add(person); //wont be added, will be ingored
+console.log(checkPerson);
+
+//Creating a set from an array: Gets rid of all duplicate values in the array
+const numbers = [1, 2, 2, 3, 4, 4, 5];
+const newNumbers = new Set(numbers);
+console.log(newNumbers); //This will get rid of all duplicate numbers.
+
+//iterating over sets
+const videoTags = new Set();
+videoTags.add("Javascript");
+videoTags.add("Tutorial");
+videoTags.forEach(tag => {
+    console.log(tag); // "Javascript" "Tutorial"
+});
+
+//using for of
+for(const tag of videoTags){
+    console.log(tag); //"Javascript" "Tutorial"
 }
-
-const manager = new InventoryManager();
-manager.addItem("Item-1", 5);
-manager.getInventoryCount();
