@@ -2935,28 +2935,71 @@ into a series of other functions. When used, you create a chain of specialized f
 one after the other to get the final resutl*/
 
 //function
-function sum(a, b) {
-    return a + b;
-}
+// function sum(a, b) {
+//     return a + b;
+// }
 
-//make it curried
-//the first function will take the first number, and return another function, which will then return addition of both numbers
-function curriedSum(a){
-    return function(b){
-        return a + b;
+// //make it curried
+// //the first function will take the first number, and return another function, which will then return addition of both numbers
+// function curriedSum(a){
+//     return function(b){
+//         return a + b;
+//     }
+// }
+
+// //This allows you to specialize a constant, which means it will always contain one value
+// const sumFive = curriedSum(5); //sumFive will always have 5 as the first parameter
+// sumFive(2); //This is where we give it the second parameter
+// console.log(sumFive(2)) // 7
+// console.log(sumFive(5)) // 10
+
+// //Can be seen in gave development
+// const boostHealth = curriedSum(20); //Specialized constant will always add 20
+// console.log(boostHealth(10)); //This instance will add 30;
+// console.log(boostHealth(20)); //This instance will add 20;
+
+// //Curried sum function can also be written with arrows
+// const arrowCurriedSum = (a) => (b) => a + b;
+
+//Applied example of Currying
+const users = [
+    {
+      id: 1,
+      age: 30
+    },
+    {
+      id: 2,
+      age: 25
+    },
+    {
+      id: 3,
+      age: 15
+    },
+    {
+      id: 4,
+      age: 35
     }
+  ];
+
+  //Regular function
+const filterByAge = (age, users) => {
+    //This filters any users whos age equals the age parameter inputted
+    return users.filter(user => user.age === age)
 }
 
-//This allows you to specialize a constant, which means it will always contain one value
-const sumFive = curriedSum(5); //sumFive will always have 5 as the first parameter
-sumFive(2); //This is where we give it the second parameter
-console.log(sumFive(2)) // 7
-console.log(sumFive(5)) // 10
+//sample usage
+console.log(filterByAge(30, users)); //Will output the first object
 
-//Can be seen in gave development
-const boostHealth = curriedSum(20); //Specialized constant will always add 20
-console.log(boostHealth(10)); //This instance will add 30;
-console.log(boostHealth(20)); //This instance will add 20;
+//Curried equation, one parameter at a time
+const curriedFilterByAge = (age) => {
+    return (users) => {
+        return users.filter(user => user.age === age);
+    };
+};
 
-//Curried sum function can also be written with arrows
-const arrowCurriedSum = (a) => (b) => a + b;
+//Now we can make specialized constants
+const filterBy15 = curriedFilterByAge(15);
+const filterBy25 = curriedFilterByAge(25);
+
+console.log(filterBy15(users));
+console.log(filterBy25(users));
