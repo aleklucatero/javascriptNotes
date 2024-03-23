@@ -3005,39 +3005,77 @@ one after the other to get the final resutl*/
 // console.log(filterBy25(users));
 
 //Another currying example
-const products = [
-    {
-        id: 1,
-        name: "Apple",
-        price: 2.5,
-        lowStock: true,
-    },
-    {
-        id: 2,
-        name: "TV",
-        price: 500,
-        lowStock: true,
-    },
-    {
-        id: 3,
-        name: "Milk",
-        price: 3,
-        lowStock: false,
-    },
-    {
-        id: 4,
-        name: "Laptop",
-        price: 1200,
-        lowStock: true,
+// const products = [
+//     {
+//         id: 1,
+//         name: "Apple",
+//         price: 2.5,
+//         lowStock: true,
+//     },
+//     {
+//         id: 2,
+//         name: "TV",
+//         price: 500,
+//         lowStock: true,
+//     },
+//     {
+//         id: 3,
+//         name: "Milk",
+//         price: 3,
+//         lowStock: false,
+//     },
+//     {
+//         id: 4,
+//         name: "Laptop",
+//         price: 1200,
+//         lowStock: true,
+//     }
+//     ];
+
+// //Make a function that filters data that is lowStock = true
+// const filterByLowStock = (lowStock) => {
+//     return (products) => {
+//         return products.filter(product => product.lowStock === lowStock);
+//     };
+// };
+
+// const lowStockProducts = filterByLowStock(true)(products);
+// console.log(lowStockProducts);
+
+//Generator functions
+function* getData(){
+    yield 5;
+    yield 6;
+    return 10; //Exits the function with done: true
+    yield 11; //Will never be yielded
+}
+
+//You have to store getData() in variable to keep calling it, or a new object will be created
+const values = getData();
+console.log(values.next()); // {value: 5, done: false}
+console.log(values.next()); // {value: 10, done: true}
+console.log(values.next()); // {value: undefined, done: true}
+
+//You can iterate over the generator using for...of
+function* getNames(){
+    yield "Alek";
+    yield "Sam";
+}
+for (const name of getNames()) {
+    console.log(name);
+}
+
+//function that lets you roll a dice however many times. will return those values
+function* rollDice(limit){
+    for(let count = 0; count < limit; count++){
+        yield Math.floor(Math.random() * 6) + 1;
     }
-    ];
+}
 
-//Make a function that filters data that is lowStock = true
-const filterByLowStock = (lowStock) => {
-    return (products) => {
-        return products.filter(product => product.lowStock === lowStock);
-    };
-};
+for(const roll of rollDice(5)) {
+    console.log(roll)
+}
 
-const lowStockProducts = filterByLowStock(true)(products);
-console.log(lowStockProducts);
+const newValues = rollDice(100);
+newValues.next();
+newValues.next();
