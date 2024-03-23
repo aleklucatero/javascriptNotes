@@ -2962,44 +2962,82 @@ one after the other to get the final resutl*/
 // const arrowCurriedSum = (a) => (b) => a + b;
 
 //Applied example of Currying
-const users = [
+// const users = [
+//     {
+//       id: 1,
+//       age: 30
+//     },
+//     {
+//       id: 2,
+//       age: 25
+//     },
+//     {
+//       id: 3,
+//       age: 15
+//     },
+//     {
+//       id: 4,
+//       age: 35
+//     }
+//   ];
+
+//   //Regular function
+// const filterByAge = (age, users) => {
+//     //This filters any users whos age equals the age parameter inputted
+//     return users.filter(user => user.age === age)
+// }
+
+// //sample usage
+// console.log(filterByAge(30, users)); //Will output the first object
+
+// //Curried equation, one parameter at a time
+// const curriedFilterByAge = (age) => {
+//     return (users) => {
+//         return users.filter(user => user.age === age);
+//     };
+// };
+
+// //Now we can make specialized constants
+// const filterBy15 = curriedFilterByAge(15);
+// const filterBy25 = curriedFilterByAge(25);
+
+// console.log(filterBy15(users));
+// console.log(filterBy25(users));
+
+//Another currying example
+const products = [
     {
-      id: 1,
-      age: 30
+        id: 1,
+        name: "Apple",
+        price: 2.5,
+        lowStock: true,
     },
     {
-      id: 2,
-      age: 25
+        id: 2,
+        name: "TV",
+        price: 500,
+        lowStock: true,
     },
     {
-      id: 3,
-      age: 15
+        id: 3,
+        name: "Milk",
+        price: 3,
+        lowStock: false,
     },
     {
-      id: 4,
-      age: 35
+        id: 4,
+        name: "Laptop",
+        price: 1200,
+        lowStock: true,
     }
-  ];
+    ];
 
-  //Regular function
-const filterByAge = (age, users) => {
-    //This filters any users whos age equals the age parameter inputted
-    return users.filter(user => user.age === age)
-}
-
-//sample usage
-console.log(filterByAge(30, users)); //Will output the first object
-
-//Curried equation, one parameter at a time
-const curriedFilterByAge = (age) => {
-    return (users) => {
-        return users.filter(user => user.age === age);
+//Make a function that filters data that is lowStock = true
+const filterByLowStock = (lowStock) => {
+    return (products) => {
+        return products.filter(product => product.lowStock === lowStock);
     };
 };
 
-//Now we can make specialized constants
-const filterBy15 = curriedFilterByAge(15);
-const filterBy25 = curriedFilterByAge(25);
-
-console.log(filterBy15(users));
-console.log(filterBy25(users));
+const lowStockProducts = filterByLowStock(true)(products);
+console.log(lowStockProducts);
