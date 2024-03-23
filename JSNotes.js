@@ -2823,18 +2823,67 @@ as well as handling errors
 //5. Add the two dice possibilites and add that to the Set.
 
 //1. Make function
-const possibleOutcomes = () => {
-    //2. Initialize variable with a new Set
-    const set = new Set();
+// const possibleOutcomes = () => {
+//     //2. Initialize variable with a new Set
+//     const set = new Set();
 
-    //3 Iterate through first dice that is thrown
-    for(let firstRoll = 1; firstRoll <= 6; firstRoll++){
-        //4. Iterate through the second dice that is thrown
-        for(let secondRoll = 1; secondRoll <= 6; secondRoll++) {
-            //5. Add the two dice possibilities and add that to set
-            set.add(firstRoll + secondRoll);
-        };
-    };
-    return set;
-}
-console.log(possibleOutcomes());
+//     //3 Iterate through first dice that is thrown
+//     for(let firstRoll = 1; firstRoll <= 6; firstRoll++){
+//         //4. Iterate through the second dice that is thrown
+//         for(let secondRoll = 1; secondRoll <= 6; secondRoll++) {
+//             //5. Add the two dice possibilities and add that to set
+//             set.add(firstRoll + secondRoll);
+//         };
+//     };
+//     return set;
+// }
+// console.log(possibleOutcomes());
+
+//Functional programming
+/*Functional programming allows for better maintainability and readability*/
+const users = [
+    {
+        id: 1,
+        name: "Alex",
+        age: 21,
+        isActive: true
+    },
+    {
+        id: 2,
+        name: "Sophia",
+        age: 16 ,
+        isActive: false
+    },
+    {
+        id: 3,
+        name: "John",
+        age: 15,
+        isActive: true
+    },
+    {
+        id: 4,
+        name: "Dave",
+        age: 35,
+        isActive: false
+    },
+];
+
+//We want to filter out the users that are not active, and the users that are below 18
+// const activeUsers = users.filter(user => user.isActive); //Will filter only what is true
+// const adults = users.filter(user => user.age >= 18); //Will filter only users that are above 18
+
+// //we can combine these 2, using chaining
+// const activeAdults = users
+//     .filter(user => user.isActive)
+//     .filter(user => user.age >= 18);
+// console.log(activeAdults); //Will filter a new array with the specified condition
+
+//We can then refactor our code, and set the arrow functions equal to a variable
+const filterActiveUsers = user => user.isActive;
+const filterAdultUsers = user => user.age >= 18;
+
+const finalActiveAdults = users
+    .filter(filterActiveUsers)
+    .filter(filterAdultUsers);
+
+console.log(finalActiveAdults);
