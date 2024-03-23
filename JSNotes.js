@@ -2457,18 +2457,101 @@ as well as handling errors
 //Finishing the a custom Element class
 
 // Appdashboard inherits all properties from HTMLElement
-class AppDashboard extends HTMLElement {
+// class AppDashboard extends HTMLElement {
+//     constructor(){
+//         super(); //This invokes the constructor of the superclass (HTMLElement)
+//         console.log("AppDashboard Created");
+//         const shadowRoot = this.attachShadow({mode: "open"}); //Make shadow DOM which allows ecapsulation of styles without interfering with anything else
+//     }
+
+//     connectedCallback() {
+//         console.log("AppDashboard inserted into the DOM");
+//     }
+//  }
+
+//  window.customElements.define("app-dashboard", AppDashboard);
+//  const element = document.createElement("app-dashboard"); //"AppDashboard created" Will be logged
+//  document.body.appendChild(element); // "AppDashboard inserted into the DOM"
+
+//Using Lit - LitElement is the class, html allows you to render html
+// import { LitElement, html } from "lit"; //LitElement takes the place of HTMLElement
+
+// class AppNavBar extends LitElement{
+//     //render is a method of LitElement, which is called when the component needs to be rendered or modified
+//     render(){
+//         return html `<h1>My navbar</h1>`;
+//     }
+// }
+// window.customElements.define("app-navbar", AppNavBar); //This will trigger the render(), and will log "<h1>My navbar</h1>"
+
+// import { LitElement, html } from "lit";
+
+// class AppNavBar extends LitElement{
+//     //This is where you define Atrribute of the components
+//     static properties = {
+//         theme: {type: String}
+//     }
+//     //Properties of components
+//     static properties = {
+//         user: {type: Object}
+//     }
+
+//     render(){
+//         return html `<h1>My navbar is ${this.theme}</h1>`;
+//     }
+// }
+// window.customElements.define("app-navbar", AppNavBar); //Will output "<h1>My navbar</h1>"
+
+//Using Lit with event handlers
+// import { LitElement, html } from "lit";
+
+// class AppCounter extends LitElement{
+//     constructor(){
+//         super(); //Calls LitElement's constructor.
+//         this.counter = 0;
+//     }
+
+//     onClick(){
+//         this.counter = this.counter + 1;
+//         this.requestUpdate(); // Instructs lit to re-render
+//     }
+
+//     render(){
+//         return html `<h1>Counter ${this.counter}</h1>
+//         <button @click="${this.onClick}">Add 1</button>`; //Event listener on click @click
+//     }
+// }
+
+//Excercise using event handlers with lit
+import { LitElement, html } from "lit";
+
+class AppCounter extends LitElement{
     constructor(){
-        super(); //This invokes the constructor of the superclass (HTMLElement)
-        console.log("AppDashboard Created");
-        const shadowRoot = this.attachShadow({mode: "open"}); //Make shadow DOM which allows ecapsulation of styles without interfering with anything else
+        super();
+        this.counter = 0;
     }
 
-    connectedCallback() {
-        console.log("AppDashboard inserted into the DOM");
+    addOne(){
+        this.counter += 1;
+        this.requestUpdate();
     }
- }
 
- window.customElements.define("app-dashboard", AppDashboard);
- const element = document.createElement("app-dashboard"); //"AppDashboard created" Will be logged
- document.body.appendChild(element); // "AppDashboard inserted into the DOM"
+    subtractOne(){
+        this.counter -= 1;
+        this.requestUpdate();
+    }
+
+    reset(){
+        this.counter = 0;
+        this.requestUpdate();
+    }
+
+    render(){
+        return html `<h1>Counter ${this.counter}</h1>
+        <button @click="${this.addOne}">Add one</button>
+        <button @click="${this.subtractOne}">Subtract one</button>
+        <button @click="${this.reset}">Reset count</button>`;
+    }
+}
+//I create an element <app-counter></app-counter>, and inside of this element, the render() html will be outputted
+window.customElements.define("app-counter", AppCounter);
