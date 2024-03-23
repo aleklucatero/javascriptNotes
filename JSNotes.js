@@ -2585,9 +2585,19 @@ as well as handling errors
 // const allregex = /hi/gmi; //gmi order doesnt matter
 
 //example of validatin a phonenumber input by user -- checks if number starts at 00
-function validatePhoneNumber(phonenumber){
-    const regex = /^00/;
-    return regex.test(phonenumber);
+// function validatePhoneNumber(phonenumber){
+//     const regex = /^00/;
+//     return regex.test(phonenumber);
+// }
+// console.log(validatePhoneNumber("00123456")); //Expected true
+// console.log(validatePhoneNumber("23456784")); //Expected false
+
+//In this excercise I am checking if the user input contains "javascript" anywhere in the text, not being case sensitive
+function isJavaScriptRelated(text){
+    const regex = /javascript/i;
+    return regex.test(text);
 }
-console.log(validatePhoneNumber("00123456")); //Expected true
-console.log(validatePhoneNumber("23456784")); //Expected false
+
+console.log(isJavaScriptRelated("I love javascript!")); //true
+console.log(isJavaScriptRelated("I love JAVASCRIPT!")); //true
+console.log(isJavaScriptRelated("I dont like to code")); //false
