@@ -2764,53 +2764,77 @@ as well as handling errors
 // manager.getInventoryCount();
 
 //Set - Stores a collection of unique values
-const set = new Set();
-set.add(10);
-set.add(5);
-console.log(set.size); // 2
-console.log(set); // Set (2) {10, 5}
+// const set = new Set();
+// set.add(10);
+// set.add(5);
+// console.log(set.size); // 2
+// console.log(set); // Set (2) {10, 5}
 
-//Since sets are unique, you can't add another one of the same numbers
-set.add(10);
-console.log(set.size); // 2
-console.log(set); // Set (2) {10, 5}
+// //Since sets are unique, you can't add another one of the same numbers
+// set.add(10);
+// console.log(set.size); // 2
+// console.log(set); // Set (2) {10, 5}
 
-//This is useful when eliminating any duplicate values
-//Example of eliminating duplicates on a Youtube video upload
-const tags = new Set();
-tags.add("JavaSript");
-tags.add("How to");
-tags.add("JavaSript"); //Duplicate, ignored
-console.log(tags); // Set(2) { 'JavaSript', 'How to' }
+// //This is useful when eliminating any duplicate values
+// //Example of eliminating duplicates on a Youtube video upload
+// const tags = new Set();
+// tags.add("JavaSript");
+// tags.add("How to");
+// tags.add("JavaSript"); //Duplicate, ignored
+// console.log(tags); // Set(2) { 'JavaSript', 'How to' }
 
-//adding Objects to set
-const objectSet = new Set();
-objectSet.add({name: "Alek"});
-objectSet.add({name: "Alek"});
-//Since objects are mutable, two different objects are created
-console.log(objectSet);
+// //adding Objects to set
+// const objectSet = new Set();
+// objectSet.add({name: "Alek"});
+// objectSet.add({name: "Alek"});
+// //Since objects are mutable, two different objects are created
+// console.log(objectSet);
 
-//If an object is set to a variable, then the same object wont be added
-const person = {name: "Alek"};
-const checkPerson = new Set();
-checkPerson.add(person);
-checkPerson.add(person); //wont be added, will be ingored
-console.log(checkPerson);
+// //If an object is set to a variable, then the same object wont be added
+// const person = {name: "Alek"};
+// const checkPerson = new Set();
+// checkPerson.add(person);
+// checkPerson.add(person); //wont be added, will be ingored
+// console.log(checkPerson);
 
-//Creating a set from an array: Gets rid of all duplicate values in the array
-const numbers = [1, 2, 2, 3, 4, 4, 5];
-const newNumbers = new Set(numbers);
-console.log(newNumbers); //This will get rid of all duplicate numbers.
+// //Creating a set from an array: Gets rid of all duplicate values in the array
+// const numbers = [1, 2, 2, 3, 4, 4, 5];
+// const newNumbers = new Set(numbers);
+// console.log(newNumbers); //This will get rid of all duplicate numbers.
 
-//iterating over sets
-const videoTags = new Set();
-videoTags.add("Javascript");
-videoTags.add("Tutorial");
-videoTags.forEach(tag => {
-    console.log(tag); // "Javascript" "Tutorial"
-});
+// //iterating over sets
+// const videoTags = new Set();
+// videoTags.add("Javascript");
+// videoTags.add("Tutorial");
+// videoTags.forEach(tag => {
+//     console.log(tag); // "Javascript" "Tutorial"
+// });
 
-//using for of
-for(const tag of videoTags){
-    console.log(tag); //"Javascript" "Tutorial"
+// //using for of
+// for(const tag of videoTags){
+//     console.log(tag); //"Javascript" "Tutorial"
+// }
+
+//Example using set and loops. There are 2 dice, we want to show the possible outcomes when rolling both at the same time
+//1. Make a function
+//2. Initialize a constant that has a new Set()
+//3. Iterate through the first dice that is thrown
+//4. Iterathe through the second dice that is thrown
+//5. Add the two dice possibilites and add that to the Set.
+
+//1. Make function
+const possibleOutcomes = () => {
+    //2. Initialize variable with a new Set
+    const set = new Set();
+
+    //3 Iterate through first dice that is thrown
+    for(let firstRoll = 1; firstRoll <= 6; firstRoll++){
+        //4. Iterate through the second dice that is thrown
+        for(let secondRoll = 1; secondRoll <= 6; secondRoll++) {
+            //5. Add the two dice possibilities and add that to set
+            set.add(firstRoll + secondRoll);
+        };
+    };
+    return set;
 }
+console.log(possibleOutcomes());
