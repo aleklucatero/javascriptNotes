@@ -2841,32 +2841,32 @@ as well as handling errors
 
 //Functional programming
 /*Functional programming allows for better maintainability and readability*/
-const users = [
-    {
-        id: 1,
-        name: "Alex",
-        age: 21,
-        isActive: true
-    },
-    {
-        id: 2,
-        name: "Sophia",
-        age: 16 ,
-        isActive: false
-    },
-    {
-        id: 3,
-        name: "John",
-        age: 15,
-        isActive: true
-    },
-    {
-        id: 4,
-        name: "Dave",
-        age: 35,
-        isActive: false
-    },
-];
+// const users = [
+//     {
+//         id: 1,
+//         name: "Alex",
+//         age: 21,
+//         isActive: true
+//     },
+//     {
+//         id: 2,
+//         name: "Sophia",
+//         age: 16 ,
+//         isActive: false
+//     },
+//     {
+//         id: 3,
+//         name: "John",
+//         age: 15,
+//         isActive: true
+//     },
+//     {
+//         id: 4,
+//         name: "Dave",
+//         age: 35,
+//         isActive: false
+//     },
+// ];
 
 //We want to filter out the users that are not active, and the users that are below 18
 // const activeUsers = users.filter(user => user.isActive); //Will filter only what is true
@@ -2879,11 +2879,52 @@ const users = [
 // console.log(activeAdults); //Will filter a new array with the specified condition
 
 //We can then refactor our code, and set the arrow functions equal to a variable
-const filterActiveUsers = user => user.isActive;
-const filterAdultUsers = user => user.age >= 18;
+// const filterActiveUsers = user => user.isActive;
+// const filterAdultUsers = user => user.age >= 18;
 
-const finalActiveAdults = users
-    .filter(filterActiveUsers)
-    .filter(filterAdultUsers);
+// const finalActiveAdults = users
+//     .filter(filterActiveUsers)
+//     .filter(filterAdultUsers);
 
-console.log(finalActiveAdults);
+// console.log(finalActiveAdults);
+
+//Another example of functional programming
+//Filter the items that are above 100, that are low in stock, and their name
+const products = [
+    {
+        id: 1,
+        name: "Apple",
+        price: 2.5,
+        lowStock: true,
+    },
+    {
+        id: 2,
+        name: "TV",
+        price: 500,
+        lowStock: true,
+    },
+    {
+        id: 3,
+        name: "Milk",
+        price: 3,
+        lowStock: false,
+    },
+    {
+        id: 4,
+        name: "Laptop",
+        price: 1200,
+        lowStock: true,
+    }
+    ];
+
+const priceFilter = product => product.price >= 100;
+const stockFiler = product => product.lowStock;
+const productName = product => product.name;
+
+
+const expensiveLowStockItems = products
+    .filter(priceFilter)
+    .filter(stockFiler)
+    .filter(productName);
+
+console.log(expensiveLowStockItems)
