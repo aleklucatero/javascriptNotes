@@ -2558,28 +2558,36 @@ as well as handling errors
 
 //Using regex -- Allows you to check for a specific character in a string
 //^checks at the beginning of the statement
-const regex = /^hi/; 
-regex.test("hi how are you?"); //true
-regex.test("hello, hi how are you?"); //false
+// const regex = /^hi/; 
+// regex.test("hi how are you?"); //true
+// regex.test("hello, hi how are you?"); //false
 
-const anyregex = /hi/; // --this checks for hi anywhere
-anyregex.test("hi how are you?"); //true
-anyregex.test("hello, hi how are you?"); //true
+// const anyregex = /hi/; // --this checks for hi anywhere
+// anyregex.test("hi how are you?"); //true
+// anyregex.test("hello, hi how are you?"); //true
 
-const endregex = /good bye$/; //$ at the end checks for this at the end of string
-endregex.test("Hello, good bye"); //true
-endregex.test("good bye, lover"); //false
+// const endregex = /good bye$/; //$ at the end checks for this at the end of string
+// endregex.test("Hello, good bye"); //true
+// endregex.test("good bye, lover"); //false
 
-//regex flags
-//i (insensitive)
-const iregex = /good bye/; //case-sensitive
-iregex.test("Good bye!"); //false
+// //regex flags
+// //i (insensitive)
+// const iregex = /good bye/; //case-sensitive
+// iregex.test("Good bye!"); //false
 
-const iregex2 = /good bye/i; //case-insensitive
-iregex2.test("Good bye!"); //true
+// const iregex2 = /good bye/i; //case-insensitive
+// iregex2.test("Good bye!"); //true
 
-//g (global match) - searches entire string, stops at first find
-//m (multiline match) - lets you match the ^ and $ for each new line
+// //g (global match) - searches entire string, stops at first find
+// //m (multiline match) - lets you match the ^ and $ for each new line
 
-//enabling all
-const allregex = /hi/gmi; //gmi order doesnt matter
+// //enabling all
+// const allregex = /hi/gmi; //gmi order doesnt matter
+
+//example of validatin a phonenumber input by user -- checks if number starts at 00
+function validatePhoneNumber(phonenumber){
+    const regex = /^00/;
+    return regex.test(phonenumber);
+}
+console.log(validatePhoneNumber("00123456")); //Expected true
+console.log(validatePhoneNumber("23456784")); //Expected false
