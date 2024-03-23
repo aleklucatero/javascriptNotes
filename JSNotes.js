@@ -2523,35 +2523,63 @@ as well as handling errors
 // }
 
 //Excercise using event handlers with lit
-import { LitElement, html } from "lit";
+// import { LitElement, html } from "lit";
 
-class AppCounter extends LitElement{
-    constructor(){
-        super();
-        this.counter = 0;
-    }
+// class AppCounter extends LitElement{
+//     constructor(){
+//         super();
+//         this.counter = 0;
+//     }
 
-    addOne(){
-        this.counter += 1;
-        this.requestUpdate();
-    }
+//     addOne(){
+//         this.counter += 1;
+//         this.requestUpdate();
+//     }
 
-    subtractOne(){
-        this.counter -= 1;
-        this.requestUpdate();
-    }
+//     subtractOne(){
+//         this.counter -= 1;
+//         this.requestUpdate();
+//     }
 
-    reset(){
-        this.counter = 0;
-        this.requestUpdate();
-    }
+//     reset(){
+//         this.counter = 0;
+//         this.requestUpdate();
+//     }
 
-    render(){
-        return html `<h1>Counter ${this.counter}</h1>
-        <button @click="${this.addOne}">Add one</button>
-        <button @click="${this.subtractOne}">Subtract one</button>
-        <button @click="${this.reset}">Reset count</button>`;
-    }
-}
-//I create an element <app-counter></app-counter>, and inside of this element, the render() html will be outputted
-window.customElements.define("app-counter", AppCounter);
+//     render(){
+//         return html `<h1>Counter ${this.counter}</h1>
+//         <button @click="${this.addOne}">Add one</button>
+//         <button @click="${this.subtractOne}">Subtract one</button>
+//         <button @click="${this.reset}">Reset count</button>`;
+//     }
+// }
+// //I create an element <app-counter></app-counter>, and inside of this element, the render() html will be outputted
+// window.customElements.define("app-counter", AppCounter);
+
+//Using regex -- Allows you to check for a specific character in a string
+//^checks at the beginning of the statement
+const regex = /^hi/; 
+regex.test("hi how are you?"); //true
+regex.test("hello, hi how are you?"); //false
+
+const anyregex = /hi/; // --this checks for hi anywhere
+anyregex.test("hi how are you?"); //true
+anyregex.test("hello, hi how are you?"); //true
+
+const endregex = /good bye$/; //$ at the end checks for this at the end of string
+endregex.test("Hello, good bye"); //true
+endregex.test("good bye, lover"); //false
+
+//regex flags
+//i (insensitive)
+const iregex = /good bye/; //case-sensitive
+iregex.test("Good bye!"); //false
+
+const iregex2 = /good bye/i; //case-insensitive
+iregex2.test("Good bye!"); //true
+
+//g (global match) - searches entire string, stops at first find
+//m (multiline match) - lets you match the ^ and $ for each new line
+
+//enabling all
+const allregex = /hi/gmi; //gmi order doesnt matter
