@@ -2890,41 +2890,73 @@ as well as handling errors
 
 //Another example of functional programming
 //Filter the items that are above 100, that are low in stock, and their name
-const products = [
-    {
-        id: 1,
-        name: "Apple",
-        price: 2.5,
-        lowStock: true,
-    },
-    {
-        id: 2,
-        name: "TV",
-        price: 500,
-        lowStock: true,
-    },
-    {
-        id: 3,
-        name: "Milk",
-        price: 3,
-        lowStock: false,
-    },
-    {
-        id: 4,
-        name: "Laptop",
-        price: 1200,
-        lowStock: true,
+// const products = [
+//     {
+//         id: 1,
+//         name: "Apple",
+//         price: 2.5,
+//         lowStock: true,
+//     },
+//     {
+//         id: 2,
+//         name: "TV",
+//         price: 500,
+//         lowStock: true,
+//     },
+//     {
+//         id: 3,
+//         name: "Milk",
+//         price: 3,
+//         lowStock: false,
+//     },
+//     {
+//         id: 4,
+//         name: "Laptop",
+//         price: 1200,
+//         lowStock: true,
+//     }
+//     ];
+
+// const priceFilter = product => product.price >= 100;
+// const stockFiler = product => product.lowStock;
+// const productName = product => product.name;
+
+
+// const expensiveLowStockItems = products
+//     .filter(priceFilter)
+//     .filter(stockFiler)
+//     .filter(productName);
+
+// console.log(expensiveLowStockItems)
+
+//Currying
+/* Currying is a techinque that breaks down a function that accepts multiple parameters, 
+into a series of other functions. When used, you create a chain of specialized functions
+one after the other to get the final resutl*/
+
+//function
+function sum(a, b) {
+    return a + b;
+}
+
+//make it curried
+//the first function will take the first number, and return another function, which will then return addition of both numbers
+function curriedSum(a){
+    return function(b){
+        return a + b;
     }
-    ];
+}
 
-const priceFilter = product => product.price >= 100;
-const stockFiler = product => product.lowStock;
-const productName = product => product.name;
+//This allows you to specialize a constant, which means it will always contain one value
+const sumFive = curriedSum(5); //sumFive will always have 5 as the first parameter
+sumFive(2); //This is where we give it the second parameter
+console.log(sumFive(2)) // 7
+console.log(sumFive(5)) // 10
 
+//Can be seen in gave development
+const boostHealth = curriedSum(20); //Specialized constant will always add 20
+console.log(boostHealth(10)); //This instance will add 30;
+console.log(boostHealth(20)); //This instance will add 20;
 
-const expensiveLowStockItems = products
-    .filter(priceFilter)
-    .filter(stockFiler)
-    .filter(productName);
-
-console.log(expensiveLowStockItems)
+//Curried sum function can also be written with arrows
+const arrowCurriedSum = (a) => (b) => a + b;
